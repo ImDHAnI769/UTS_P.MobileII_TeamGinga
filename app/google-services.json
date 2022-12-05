@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "847304597312",
+    "project_id": "ginga-4bc0b",
+    "storage_bucket": "ginga-4bc0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847304597312:android:c92e06a670ca24dad764a5",
+        "android_client_info": {
+          "package_name": "com.example.loginapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847304597312-tpfq89inhbmkmdj3bkvl58ndnmsnt8ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_vwP-xHla7sZYea5CE4wQB7NMtmci8a0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847304597312-tpfq89inhbmkmdj3bkvl58ndnmsnt8ln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
