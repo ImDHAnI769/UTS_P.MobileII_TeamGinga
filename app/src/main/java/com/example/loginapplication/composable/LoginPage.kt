@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.loginapplication.ui.theme.PrimaryColor
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -54,6 +56,7 @@ fun LoginPage(navController: NavController){
     var email by remember {
         mutableStateOf("")
     }
+
     var password by remember {
         mutableStateOf("")
     }
@@ -66,9 +69,14 @@ fun LoginPage(navController: NavController){
         password.length > 7
     }
 
-    val isPasswordVisible by remember {
+    var isPasswordVisible by remember {
         mutableStateOf(false)
     }
+
+    val icon = if(isPasswordVisible)
+        painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_visibility_24)
+    else
+        painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_visibility_off_24)
 
     val context = LocalContext.current
 
@@ -78,7 +86,8 @@ fun LoginPage(navController: NavController){
         .padding(bottom = 130.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom) {
-
+        Image(painter = painterResource(id = com.example.loginapplication.R.drawable._853458), contentDescription ="" ,
+        modifier = Modifier.size(200.dp))
         MaterialTheme(typography = MyCustomTypography) {
             Text(text = "Login",
                 style = MaterialTheme.typography.overline,
@@ -160,10 +169,10 @@ fun LoginPage(navController: NavController){
                         ),
                         isError = !isPasswordValid,
                         trailingIcon = {
-                            IconButton(onClick = {isPasswordVisible != isPasswordVisible}) {
-                                Icon(  imageVector = if(isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                                    contentDescription = "Toggle Password Visibility")
-
+                            IconButton(onClick = {
+                                isPasswordVisible = !isPasswordVisible
+                            }) {
+                                Icon(painter = icon, contentDescription = "Visibility Icon")
                             }
                         },
                         visualTransformation = if(isPasswordVisible) VisualTransformation.None
@@ -206,7 +215,7 @@ fun LoginPage(navController: NavController){
                     Text(
                         color = Color.Black,
                         fontStyle = FontStyle.Italic,
-                        text = "Dont Have Account ?, Register here!",
+                        text = "Dont Have Account ?",
                         modifier = Modifier.padding(end = 8.dp)
 
                     )

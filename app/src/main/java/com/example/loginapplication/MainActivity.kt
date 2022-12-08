@@ -27,7 +27,8 @@ class MainActivity : ComponentActivity() {
     fun Login(){
         val navController = rememberNavController()
 
-        NavHost(navController = navController, startDestination = "login_page", builder = {
+        NavHost(navController = navController, startDestination = "welcome_page", builder = {
+            composable("welcome_page", content = { WelcomePage(navController = navController) })
             composable("login_page", content = { LoginPage(navController = navController) })
             composable("register_page", content = { RegisterPage(navController = navController) })
             composable("menu_page", content = { MenuPage(navController = navController) })

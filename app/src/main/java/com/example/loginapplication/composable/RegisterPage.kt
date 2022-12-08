@@ -5,6 +5,7 @@ import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -21,6 +22,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.loginapplication.R
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -59,9 +62,14 @@ fun RegisterPage(navController: NavController){
         password.length > 7
     }
 
-    val isPasswordVisible by remember {
+    var isPasswordVisible by remember {
         mutableStateOf(false)
     }
+
+    val icon = if(isPasswordVisible)
+        painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_visibility_24)
+    else
+        painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_visibility_off_24)
 
     val context = LocalContext.current
 
@@ -71,7 +79,8 @@ fun RegisterPage(navController: NavController){
         .padding(bottom = 130.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom) {
-
+        Image(painter = painterResource(id = R.drawable.mobile_login_cristina),
+            contentDescription ="" , modifier = Modifier.size(200.dp))
         MaterialTheme(typography = MyCustomTypography) {
             Text(text = "Register",
                 style = MaterialTheme.typography.overline,
@@ -124,7 +133,6 @@ fun RegisterPage(navController: NavController){
                                 IconButton(onClick = {email = ""}) {
                                     Icon(  imageVector = Icons.Filled.Clear ,
                                         contentDescription = "Clear Email")
-
                                 }
                             }
                         }
@@ -137,6 +145,35 @@ fun RegisterPage(navController: NavController){
                         },
                         placeholder = {
                             Text(text = "abc123",
+                                color = Color.DarkGray)
+                        },
+                        singleLine = true,
+                        modifier = Modifier,
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = { focusManager.clearFocus() }
+                        ),
+                        isError = !isPasswordValid,
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                isPasswordVisible = !isPasswordVisible
+                            }) {
+                                Icon(painter = icon, contentDescription = "Visibility Icon")
+                            }
+                        },
+                        visualTransformation = if(isPasswordVisible) VisualTransformation.None
+                        else PasswordVisualTransformation()
+                    )
+                    OutlinedTextField(value = password,colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.Black), onValueChange ={password = it},
+                        label = {
+                            Text(text = "Confirm Password",
+                                color = Color.Black)
+                        },
+                        placeholder = {
+                            Text(text = "Password",
                                 color = Color.DarkGray)
                         },
                         singleLine = true,

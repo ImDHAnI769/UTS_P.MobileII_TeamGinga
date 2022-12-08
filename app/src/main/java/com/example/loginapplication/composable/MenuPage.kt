@@ -28,13 +28,15 @@ fun MenuPage(navController: NavController){
     var bottomState by remember {
         mutableStateOf("Home")
     }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Top App Bar")},
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = {
+
+                    }) {
                         Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                     }
                 },
@@ -55,7 +57,7 @@ fun MenuPage(navController: NavController){
             Column(
                 modifier = Modifier
                     .fillMaxSize(),
-                    //.verticalScroll(rememberScrollableState(consumeScrollDelta = )),
+                //.verticalScroll(rememberScrollableState(consumeScrollDelta = )),
                 verticalArrangement = Arrangement.spacedBy(26.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -212,4 +214,3 @@ fun MenuPage(navController: NavController){
         }
     )
 }
-
