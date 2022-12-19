@@ -53,6 +53,9 @@ fun RegisterPage(navController: NavController){
     var password by remember {
         mutableStateOf("")
     }
+    var Confirmpassword by remember {
+        mutableStateOf("")
+    }
 
     val isEmailValid by derivedStateOf {
         Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -167,7 +170,7 @@ fun RegisterPage(navController: NavController){
                         visualTransformation = if(isPasswordVisible) VisualTransformation.None
                         else PasswordVisualTransformation()
                     )
-                    OutlinedTextField(value = password,colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.Black), onValueChange ={password = it},
+                    OutlinedTextField(value = Confirmpassword,colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.Black), onValueChange ={Confirmpassword = it},
                         label = {
                             Text(text = "Confirm Password",
                                 color = Color.Black)
@@ -187,12 +190,11 @@ fun RegisterPage(navController: NavController){
                         ),
                         isError = !isPasswordValid,
                         trailingIcon = {
-                            IconButton(onClick = {isPasswordVisible != isPasswordVisible}) {
-                                Icon(  imageVector = if(isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                                    contentDescription = "Toggle Password Visibility")
-
+                            IconButton(onClick = {
+                                isPasswordVisible = !isPasswordVisible
+                            }) {
+                                Icon(painter = icon, contentDescription = "Visibility Icon")
                             }
-
                         },
                         visualTransformation = if(isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
                     )

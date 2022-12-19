@@ -1,7 +1,9 @@
 package com.example.loginapplication.composable
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.compose.material.*
@@ -12,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
@@ -19,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -28,15 +33,14 @@ fun MenuPage(navController: NavController){
     var bottomState by remember {
         mutableStateOf("Home")
     }
+    //val fabShape = RoundedCornerShape(50)
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Top App Bar")},
+                title = { Text(text = "Keripik IBUMM")},
                 navigationIcon = {
-                    IconButton(onClick = {
-
-                    }) {
+                    IconButton(onClick = {  }) {
                         Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                     }
                 },
@@ -54,120 +58,24 @@ fun MenuPage(navController: NavController){
             )
         },
         content = {
+            val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
-                    .fillMaxSize(),
-                //.verticalScroll(rememberScrollableState(consumeScrollDelta = )),
-                verticalArrangement = Arrangement.spacedBy(26.dp, Alignment.CenterVertically),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                    .fillMaxHeight()
+                    .padding()
+                    .scrollable(scrollState, orientation = Orientation.Vertical)
             ) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    elevation = 20.dp
-                ) {
-                    Surface(
-                        color = MaterialTheme.colors.primaryVariant,
-                        modifier = Modifier
-                            .height(210.dp)
-                            .padding(10.dp)
+                repeat(100) {
+                    Card(
+                        backgroundColor = Color(0xFFFFC107),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.padding(8.dp)
                     ) {
-                        Row(
-                            modifier = Modifier.padding(10.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .weight(2f),
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Surface(
-                                    shape = RoundedCornerShape(24.dp),
-                                    modifier = Modifier.wrapContentSize(),
-                                    color = Color(0xFFFF9800)
-                                ) {
-                                    Text(
-                                        text = "New release",
-                                        fontSize = 12.sp,
-                                        style = MaterialTheme.typography.h1,
-                                        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-                                    )
-                                }
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "Keripik Pisang 'Original'",
-                                    fontSize = 24.sp,
-                                    style = MaterialTheme.typography.h1,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-
-                                Spacer(modifier = Modifier.height(2.dp))
-
-                                Text(text = "Harga : 30K")
-
-                                Spacer(modifier = Modifier.height(2.dp))
-
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(
-                                        text = "4.0",
-                                        fontSize =  14.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        style = MaterialTheme.typography.h1
-                                    )
-                                    Spacer(modifier = Modifier.width(4.dp))
-
-                                    Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
-                                        tint = Color(0xFFFFC107),
-                                        contentDescription = null
-                                    )
-                                    Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
-                                        tint = Color(0xFFFFC107),
-                                        contentDescription = null
-                                    )
-                                    Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
-                                        tint = Color(0xFFFFC107),
-                                        contentDescription = null
-                                    )
-                                    Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
-                                        tint = Color(0xFFFFC107),
-                                        contentDescription = null
-                                    )
-                                }
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                OutlinedButton(
-                                    shape = RoundedCornerShape(24.dp),
-                                    modifier = Modifier.wrapContentSize(),
-                                    colors = ButtonDefaults.buttonColors(
-                                        contentColor = Color.Black,
-                                        backgroundColor = Color.White
-                                    ),
-                                    onClick = { /*TODO*/ }
-                                ) {
-                                    Text(
-                                        text = "Beli",
-                                        fontSize =  16.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        style = MaterialTheme.typography.h1,
-                                        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-                                    )
-                                }
-                            }
-
-                            Surface(
-                                shape = RoundedCornerShape(16.dp),
-                                modifier = Modifier.size(width = 100.dp, height = 140.dp)
-                            ) {
-                                Image(
-                                    painter = painterResource(id = com.example.loginapplication.R.drawable.img_20221007_wa0008),
-                                    contentScale = ContentScale.Crop,
-                                    contentDescription = null
-                                )
-                            }
-                        }
+                        Spacer(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp)
+                        )
                     }
                 }
             }
@@ -211,6 +119,47 @@ fun MenuPage(navController: NavController){
                     icon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Account")}
                 )
             }
+        }
+    )
+}
+
+@Composable
+fun SearchAppBar() {
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = "",
+        onValueChange = {},
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = "Search Icon",
+                tint = Color.White.copy(
+                    alpha = ContentAlpha.medium
+                )
+            )
+        },
+        trailingIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Close Icon",
+                    tint = Color.White
+                )
+            }
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = Color.White.copy(
+                alpha = ContentAlpha.medium
+            ),
+            focusedBorderColor = Color.White,
+            cursorColor = Color.White
+        ),
+        placeholder = {
+            Text(
+                text = "Search....",
+                color = Color.White.copy(alpha = ContentAlpha.medium),
+                fontFamily = FontFamily.SansSerif
+            )
         }
     )
 }

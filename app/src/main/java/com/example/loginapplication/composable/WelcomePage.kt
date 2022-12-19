@@ -60,7 +60,7 @@ fun WelcomePage(navController: NavController) {
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFFC107)),
                 modifier = Modifier.padding(5.dp),
                 onClick = {
-                    navController.navigate("welcome_page"){
+                    navController.navigate("login_page"){
                         popUpTo = navController.graph.startDestinationId
                         launchSingleTop = true
                     }
