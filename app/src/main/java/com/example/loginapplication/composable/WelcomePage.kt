@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.loginapplication.navigation.Screens
 
 @Composable
 fun WelcomePage(navController: NavController) {
@@ -60,10 +61,7 @@ fun WelcomePage(navController: NavController) {
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFFC107)),
                 modifier = Modifier.padding(5.dp),
                 onClick = {
-                    navController.navigate("login_page"){
-                        popUpTo = navController.graph.startDestinationId
-                        launchSingleTop = true
-                    }
+                    navController.navigate(Screens.Login.route)
                 }
             ) {
                 Text(

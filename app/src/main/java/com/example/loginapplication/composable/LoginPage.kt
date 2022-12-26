@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.loginapplication.navigation.Screens
 import com.example.loginapplication.ui.theme.PrimaryColor
 import com.google.firebase.auth.FirebaseAuth
 
@@ -182,11 +183,8 @@ fun LoginPage(navController: NavController){
                         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
                             if (it.isSuccessful) {
                                 Log.d(TAG, "The user has succesfully logged in")
-                                Toast.makeText(context,"LogIn Successfully",Toast.LENGTH_SHORT).show()
-                                navController.navigate("menu_page"){
-                                    popUpTo = navController.graph.startDestinationId
-                                    launchSingleTop = true
-                                }
+                                Toast.makeText(context,"Login Successfully",Toast.LENGTH_SHORT).show()
+                                navController.navigate(Screens.Menu.route)
                             } else {
                                 it.exception
                                 Log.w(TAG, "Sorry! could'nt find the user", it.exception)
@@ -207,10 +205,7 @@ fun LoginPage(navController: NavController){
             Row(horizontalArrangement = Arrangement.End,
                 modifier = Modifier.fillMaxWidth()) {
                 TextButton(onClick = {
-                    navController.navigate("register_page"){
-                        popUpTo = navController.graph.startDestinationId
-                        launchSingleTop = true
-                    }
+                    navController.navigate(Screens.Register.route)
                 }) {
                     Text(
                         color = Color.Black,

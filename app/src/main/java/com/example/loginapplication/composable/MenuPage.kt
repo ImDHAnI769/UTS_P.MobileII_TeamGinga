@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.loginapplication.navigation.Screens
 
 @Composable
 fun MenuPage(navController: NavController){
@@ -49,9 +50,6 @@ fun MenuPage(navController: NavController){
                 elevation = 8.dp,
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notification")
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {
                         Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Shopping")
                     }
                 }
@@ -59,23 +57,116 @@ fun MenuPage(navController: NavController){
         },
         content = {
             val scrollState = rememberScrollState()
-            Column(
+            Card(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .padding()
-                    .scrollable(scrollState, orientation = Orientation.Vertical)
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                elevation = 10.dp
             ) {
-                repeat(100) {
-                    Card(
-                        backgroundColor = Color(0xFFFFC107),
-                        shape = RoundedCornerShape(8.dp),
-                        modifier = Modifier.padding(8.dp)
+                Surface(
+                    color = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier
+                        .height(210.dp)
+                        .padding(10.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(20.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Spacer(
+                        Column(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .height(200.dp)
-                        )
+                                .fillMaxSize()
+                                .weight(2f),
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Surface(
+                                shape = RoundedCornerShape(24.dp),
+                                modifier = Modifier.wrapContentSize(),
+                                color = Color(0xFFD1D5E1)
+                            ) {
+                                Text(
+                                    text = "New release",
+                                    fontSize = 12.sp,
+                                    style = MaterialTheme.typography.h1,
+                                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            Text(
+                                text = "Keripik Pisang 'Original'",
+                                fontSize = 24.sp,
+                                style = MaterialTheme.typography.h1,
+                                fontWeight = FontWeight.SemiBold
+                            )
+
+                            Spacer(modifier = Modifier.height(2.dp))
+
+                            Text(text = "Harga : 30K")
+
+                            Spacer(modifier = Modifier.height(2.dp))
+
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "4.0",
+                                    fontSize =  14.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    style = MaterialTheme.typography.h1
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+
+                                Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
+                                    tint = Color(0xFFFFC107),
+                                    contentDescription = null
+                                )
+                                Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
+                                    tint = Color(0xFFFFC107),
+                                    contentDescription = null
+                                )
+                                Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
+                                    tint = Color(0xFFFFC107),
+                                    contentDescription = null
+                                )
+                                Icon(painter = painterResource(id = com.example.loginapplication.R.drawable.ic_baseline_star_24),
+                                    tint = Color(0xFFFFC107),
+                                    contentDescription = null
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            OutlinedButton(
+                                shape = RoundedCornerShape(8.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    contentColor = Color.Black,
+                                    backgroundColor = Color.White
+                                ),
+                                onClick = {
+
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 10.dp, top = 10.dp)
+                            ) {
+                                Text(
+                                    text = "Beli",
+                                    fontSize =  80.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    style = MaterialTheme.typography.h2
+                                )
+                            }
+                        }
+
+                        Surface(
+                            shape = RoundedCornerShape(16.dp),
+                            modifier = Modifier.size(width = 100.dp, height = 140.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = com.example.loginapplication.R.drawable.img_20221007_wa0008),
+                                contentScale = ContentScale.Crop,
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             }
@@ -88,78 +179,28 @@ fun MenuPage(navController: NavController){
                 BottomNavigationItem(
                     selected = bottomState == "Home",
                     onClick = {
-                        navController.navigate("menu_page"){
-                            popUpTo = navController.graph.startDestinationId
-                            launchSingleTop = true
-                        }
+                        navController.navigate(Screens.Menu.route)
                     },
                     label = { Text(text = "Home")},
                     icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "Home")}
                 )
                 BottomNavigationItem(
-                    selected = bottomState == "Message",
+                    selected = bottomState == "Pesan",
                     onClick = {
-                        navController.navigate("message_page"){
-                            popUpTo = navController.graph.startDestinationId
-                            launchSingleTop = true
-                        }
+                        navController.navigate(Screens.Message.route)
                     },
-                    label = { Text(text = "Message")},
-                    icon = { Icon(imageVector = Icons.Default.Email, contentDescription = "Message")}
+                    label = { Text(text = "Pesan")},
+                    icon = { Icon(imageVector = Icons.Default.Email, contentDescription = "Pesan")}
                 )
                 BottomNavigationItem(
-                    selected = bottomState == "Account",
+                    selected = bottomState == "Saya",
                     onClick = {
-                        navController.navigate("profil_page"){
-                            popUpTo = navController.graph.startDestinationId
-                            launchSingleTop = true
-                        }
+                        navController.navigate(Screens.Profil.route)
                     },
-                    label = { Text(text = "Account")},
-                    icon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Account")}
+                    label = { Text(text = "Saya")},
+                    icon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Saya")}
                 )
             }
-        }
-    )
-}
-
-@Composable
-fun SearchAppBar() {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = "",
-        onValueChange = {},
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = "Search Icon",
-                tint = Color.White.copy(
-                    alpha = ContentAlpha.medium
-                )
-            )
-        },
-        trailingIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = "Close Icon",
-                    tint = Color.White
-                )
-            }
-        },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = Color.White.copy(
-                alpha = ContentAlpha.medium
-            ),
-            focusedBorderColor = Color.White,
-            cursorColor = Color.White
-        ),
-        placeholder = {
-            Text(
-                text = "Search....",
-                color = Color.White.copy(alpha = ContentAlpha.medium),
-                fontFamily = FontFamily.SansSerif
-            )
         }
     )
 }

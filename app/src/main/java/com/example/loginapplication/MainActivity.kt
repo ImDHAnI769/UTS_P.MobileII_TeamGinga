@@ -18,22 +18,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             LoginApplicationTheme {
                 // A surface container using the 'background' color from the theme
-                Login()
+                val navController = rememberNavController()
+                NavGraph(navController = navController)
             }
         }
-    }
-
-    @Composable
-    fun Login(){
-        val navController = rememberNavController()
-
-        NavHost(navController = navController, startDestination = "welcome_page", builder = {
-            composable("welcome_page", content = { WelcomePage(navController = navController) })
-            composable("login_page", content = { LoginPage(navController = navController) })
-            composable("register_page", content = { RegisterPage(navController = navController) })
-            composable("menu_page", content = { MenuPage(navController = navController) })
-            composable("message_page", content = { MessagePage(navController = navController) })
-            composable("profil_page", content = { ProfilPage(navController = navController) })
-        })
     }
 }

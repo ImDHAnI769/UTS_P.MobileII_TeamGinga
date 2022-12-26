@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import com.example.loginapplication.navigation.Screens
 
 @Composable
 fun MessagePage(navController: NavController){
@@ -40,10 +41,7 @@ fun MessagePage(navController: NavController){
                 BottomNavigationItem(
                     selected = bottomState == "Home",
                     onClick = {
-                        navController.navigate("menu_page"){
-                            popUpTo = navController.graph.startDestinationId
-                            launchSingleTop = true
-                        }
+                        navController.navigate(Screens.Menu.route)
                     },
                     label = { Text(text = "Home") },
                     icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "Home") }
@@ -51,24 +49,18 @@ fun MessagePage(navController: NavController){
                 BottomNavigationItem(
                     selected = bottomState == "Message",
                     onClick = {
-                        navController.navigate("message_page"){
-                            popUpTo = navController.graph.startDestinationId
-                            launchSingleTop = true
-                        }
+                        navController.navigate(Screens.Message.route)
                     },
                     label = { Text(text = "Message") },
                     icon = { Icon(imageVector = Icons.Default.Email, contentDescription = "Message") }
                 )
                 BottomNavigationItem(
-                    selected = bottomState == "Account",
+                    selected = bottomState == "Saya",
                     onClick = {
-                        navController.navigate("profil_page"){
-                            popUpTo = navController.graph.startDestinationId
-                            launchSingleTop = true
-                        }
+                        navController.navigate(Screens.Profil.route)
                     },
-                    label = { Text(text = "Account") },
-                    icon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Account") }
+                    label = { Text(text = "Saya") },
+                    icon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Saya") }
                 )
             }
         }
