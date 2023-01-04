@@ -33,7 +33,7 @@ fun ProfilPage(navController: NavController){
     val context = LocalContext.current
 
     Scaffold(
-        content = {
+        topBar = {
             Card(
                 elevation = 8.dp,
                 modifier = Modifier
@@ -68,6 +68,8 @@ fun ProfilPage(navController: NavController){
                     .fillMaxWidth()
                     .height(200.dp)
             )
+        },
+        content = {
             Box(modifier = Modifier.padding(20.dp,0.dp, 20.dp, 0.dp)){
                 Button(
                     onClick = {
